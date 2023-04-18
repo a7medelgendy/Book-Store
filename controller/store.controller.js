@@ -1,5 +1,5 @@
 const dbConction = require('../db/connection.js');
-const queries = require('../db/query');
+const queries = require('../db/queries');
 const util = require('../util/utility.js')
 
 exports.getStoreList = async (req, res) => {
