@@ -1,6 +1,6 @@
 const Transport = require('winston-transport');
 const dbConnection = require("../db/connection");
-const queries = require("../db/query");
+const queries = require("../db/queries");
 
 
 class DatabaseTransport extends Transport {

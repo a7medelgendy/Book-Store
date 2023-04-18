@@ -32,6 +32,9 @@ exports.queryList = {
 
     LOGIN_QUERY: `  SELECT USER_ID, USERNAME, PASSWORD , EMAIL, USER_TYPE_CODE, FULL_NAME, ACTIVE FROM BMS.APP_USER WHERE LOWER(USERNAME) = LOWER($1) AND ACTIVE = 1 `,
 
+
+
+
     LOG_QUERY: `INSERT INTO bms.logs (route, timestamp, level, message, meta) VALUES ($1, $2, $3, $4, $5)`,
 
 

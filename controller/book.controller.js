@@ -1,20 +1,28 @@
-const queries = require('../db/query');
+const queries = require('../db/queries');
 const dbConnection = require('../db/connection');
 const Logger = require('../services/logger.service');
+const auditService = require('../audit/audit.service');
+const auditAction = require('../audit/auditAction');
+const util = require('../Util/utility');
 
 //1- intiate object from class logger
-//var logger = new Logger("book.controller");
+var logger = new Logger("book.controller");
+
 exports.getBookList = async (req, res) => {
+    var auditOn = util.dateFormat();
+
     try {
         var bookListQuery = queries.queryList.GET_BOOK_LIST_QUERY;
         var result = await dbConnection.dbQuery(bookListQuery);
 
         //2-using logger to console, file and database
-        // logger.info("return book list", result.rows);
+        logger.info("return book list", result.rows);
+
+        auditService.prepareAudit(auditAction.actionList.GET_BOOK_LIST, result.rows, null, "postman", auditOn);
 
         return res.status(200).send(JSON.stringify(result.rows));
     } catch (err) {
-        console.log("Error : " + err);
+        logger.error("Error : ", err);
         return res.status(500).send({ error: `Failed to get books ${err}` });
     }
 }
