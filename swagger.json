@@ -1,0 +1,173 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Note & Books API",
+    "description": "Note & Books API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Note & Books",
+      "description": "API"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "paths": {
+    "/api/v1/books": {
+      "get": {
+        "description": "Returns all BOOKS from the system that the user has access to",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "A list of books.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/book"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/books/details/{bookId}": {
+      "get": {
+        "description": "Returns the BOOKS from the system that the user has access to",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of book to retrieve",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of books.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/book"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/books/save": {
+      "post": {
+        "description": "Create new BOOK to the system ",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "description": "User object to be created",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "The title of the book",
+                  "example": "How to build Linux"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "The description of the book",
+                  "example": "Advice, tactics, and tricks After"
+                },
+                "author": {
+                  "type": "string",
+                  "description": "The name of the user",
+                  "example": "Hossam"
+                },
+                "publisher": {
+                  "type": "string",
+                  "description": "The name of the user",
+                  "example": "Microsoft"
+                },
+                "storeCode": {
+                  "type": "string",
+                  "description": "The store ID",
+                  "example": "C1AHKCO2"
+                },
+                "pages": {
+                  "type": "integer",
+                  "description": "The age of the user",
+                  "example": 150
+                },
+                "required": [
+                  "title",
+                  "description",
+                  "author",
+                  "publisher",
+                  "pages",
+                  "storeCode"
+                ]
+              }
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "add book successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/book"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "book": {
+      "required": ["title", "isbn", "publisher", "author"],
+      "properties": {
+        "bookId": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer"
+        }
+      }
+    },
+    "books": {
+      "$ref": "#/definitions/book"
+    }
+  }
+}
