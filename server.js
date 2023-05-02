@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const noteRoute = require("./route/noteRoute");
 const storeRoute = require("./route/store.route");
 const bookRoute = require('./route/book.route');
@@ -18,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //new express version use
 //app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", function (req, res) {
   res.send("Hello World");
