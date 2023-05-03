@@ -48,6 +48,19 @@ CREATE TABLE bms.app_audit (
 	CONSTRAINT app_audit_pkey PRIMARY KEY (audit_id)
 );
 
+
+
+/* add by me to save logs on db */
+CREATE TABLE bms.logs (
+    id SERIAL PRIMARY KEY,
+	route VARCHAR(30) NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
+    level VARCHAR(10) NOT NULL,
+    message TEXT NOT NULL,
+    meta JSONB
+);
+
+/* user managment tables */
 CREATE TABLE bms.app_user (
 	user_id serial NOT NULL,
 	username varchar(100) NOT NULL,
@@ -98,14 +111,4 @@ CREATE TABLE bms.user_type (
 	user_type_name varchar(500) NOT NULL,
 	user_type_code varchar(10) NOT NULL,
 	CONSTRAINT user_type_pkey PRIMARY KEY (user_type_id)
-);
-
-
-CREATE TABLE bms.logs (
-    id SERIAL PRIMARY KEY,
-	route VARCHAR(30) NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
-    level VARCHAR(10) NOT NULL,
-    message TEXT NOT NULL,
-    meta JSONB
 );
