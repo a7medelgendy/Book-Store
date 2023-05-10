@@ -1,6 +1,6 @@
 const queries = require('../db/queries');
 const dbConnection = require('../db/connection');
-const util = require('../Util/utility');
+const util = require('../util/utility');
 const Logger = require('../services/logger.service');
 const auditService = require('../audit/audit.service');
 const auditAction = require('../audit/auditAction');
