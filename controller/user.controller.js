@@ -80,7 +80,7 @@ exports.saveUser = async (req, res) => {
         values = [username, hashedPassword, email, userTypeCode, fullname, createdOn, createdBy];
         var saveUserQuery = queries.queryList.SAVE_USER_QUERY;
         await dbConnection.dbQuery(saveUserQuery, values);
-        auditService.prepareAudit(auditAction.actionList.ADD_NEW_USER, result.rows, null, "postman", auditOn);
+        auditService.prepareAudit(auditAction.actionList.ADD_NEW_USER, "result.rows", null, "postman", auditOn);
         return res.status(201).send("Successfully adding new user ");
     } catch (err) {
         console.log("Error : " + err);
