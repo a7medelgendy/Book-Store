@@ -6,7 +6,8 @@ const swaggerDocument = require('./swagger.json');
 const noteRoute = require("./route/noteRoute");
 const storeRoute = require("./route/store.route");
 const bookRoute = require('./route/book.route');
-var userRoute = require('./route/user.route');
+const userRoute = require('./route/user.route');
+const loginRoute = require('./route/login.route');
 const app = express();
 
 app.use(cors());
@@ -32,6 +33,7 @@ app.use("/api/v1/notes", noteRoute);
 app.use("/api/v1/stores", storeRoute);
 app.use("/api/v1/books", bookRoute);
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/login", loginRoute);
 
 const server = app.listen(4000, () => {
   console.log("SERVER ON ....");
