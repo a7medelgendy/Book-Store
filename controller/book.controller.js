@@ -4,6 +4,9 @@ const Logger = require('../services/logger.service');
 const auditService = require('../audit/audit.service');
 const auditAction = require('../audit/auditAction');
 const util = require('../Util/utility');
+const APIError = require('../error/api.error');
+const errorStatus = require('../error/error.status');
+const errorType = require('../error/error.type');
 
 
 //1- intiate object from class logger
@@ -32,6 +35,12 @@ exports.getBookDetails = async (req, res) => {
     try {
         var bookId = req.params.bookId;
 
+        //Error Handleing
+        if (isNaN(bookId))
+            throw new APIError(errorType.API_ERROR,
+                errorStatus.INTERNAL_SERVER_ERROR,
+                "Invalid bookId , is not a number , bookId value is : " + bookId,
+                true);
         //validation
         if (!bookId) {
             return res.status(500).send({ error: 'required feilds' })
@@ -40,7 +49,11 @@ exports.getBookDetails = async (req, res) => {
         var result = await dbConnection.dbQuery(bookDetailsQuery, [bookId]);
         return res.status(200).send(JSON.stringify(result.rows[0]));
     } catch (err) {
-        return res.status(500).send({ error: 'Failed to get book details' });
+        //error handling obj and stack
+        console.log("ErrorOBJ : " + JSON.stringify(err));
+        console.log("ErrorStack : " + err.stack);
+        logger.error("Error : ", JSON.stringify(err));
+        return res.status(500).send({ error: 'Failed to get book details', errorObj: JSON.stringify(err) });
     }
 }
 
